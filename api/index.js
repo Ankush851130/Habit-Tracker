@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import { connectDB } from '../backend/config/db.js';
 import app from '../backend/app.js';
 
@@ -19,6 +20,30 @@ export default async function handler(req, res) {
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
+  }
+
+  // Diagnostic endpoints
+  if (req.url && (req.url.endsWith('/ping') || req.url.includes('/api/ping'))) {
+    return res.status(200).json({ status: 'ok', time: new Date().toISOString() });
+  }
+
+  if (req.url && (req.url.endsWith('/test-db') || req.url.includes('/api/test-db'))) {
+    try {
+      await connectDB();
+      return res.status(200).json({ 
+        status: 'success', 
+        message: 'Database connected successfully! 🚀',
+        host: mongoose.connection.host 
+      });
+    } catch (err) {
+      return res.status(500).json({ 
+        status: 'error', 
+        message: err.message, 
+        stack: err.stack,
+        hasMongoUri: !!process.env.MONGO_URI,
+        hasJwtSecret: !!process.env.JWT_SECRET
+      });
+    }
   }
 
   try {

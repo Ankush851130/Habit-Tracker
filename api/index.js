@@ -5,6 +5,19 @@ import app from '../backend/app.js';
 dotenv.config();
 
 export default async function handler(req, res) {
+  // CORS Preflight headers
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization'
+  );
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   try {
     // Normalize Vercel rewrite URL for Express routing
     if (req.url && req.url.startsWith('/api/index.js')) {
@@ -23,7 +36,12 @@ export default async function handler(req, res) {
     return res.status(500).json({ 
       success: false, 
       message: error.message || 'Server error during request execution',
-      errorDetails: process.env.NODE_ENV === 'production' ? error.stack : error.stack
+      errorDetails: error.message,
+      envCheck: {
+        hasMongoUri: !!process.env.MONGO_URI,
+        hasJwtSecret: !!process.env.JWT_SECRET,
+        nodeEnv: process.env.NODE_ENV || 'not set'
+      }
     });
   }
 }

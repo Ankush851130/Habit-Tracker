@@ -60,17 +60,17 @@ const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
+app.get(['/api/health', '/health'], (req, res) => {
   res.status(200).json({ status: 'OK', message: 'Habit Tracker API is running smoothly 🚀' });
 });
 
 // API Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
-app.use('/api/habits', habitRoutes);
-app.use('/api/analytics', analyticsRoutes);
-app.use('/api/achievements', achievementRoutes);
-app.use('/api/extra', extraRoutes);
+app.use(['/api/auth', '/auth'], authRoutes);
+app.use(['/api/user', '/user'], userRoutes);
+app.use(['/api/habits', '/habits'], habitRoutes);
+app.use(['/api/analytics', '/analytics'], analyticsRoutes);
+app.use(['/api/achievements', '/achievements'], achievementRoutes);
+app.use(['/api/extra', '/extra'], extraRoutes);
 
 // Global Error Handler
 app.use(errorHandler);

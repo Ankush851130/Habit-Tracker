@@ -1,13 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { FiPlay, FiPause, FiRotateCcw, FiSmile, FiMeh, FiFrown, FiPlus, FiBook } from 'react-icons/fi';
+import {
+  FiPlay,
+  FiPause,
+  FiRotateCcw,
+  FiSmile,
+  FiMeh,
+  FiFrown,
+  FiPlus,
+  FiMinus,
+  FiBook,
+  FiClock,
+} from 'react-icons/fi';
 import { GlassCard } from '../Common/GlassCard';
 import toast from 'react-hot-toast';
 
-// 1. Pomodoro Timer
+// 1. Pomodoro Focus Timer with Increase/Decrease Duration Controls
 export const PomodoroTimer = ({ onCompleteSession }) => {
+  const [targetMinutes, setTargetMinutes] = useState(25); // Default 25 min
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [sessionType, setSessionType] = useState('focus'); // 'focus' | 'shortBreak' | 'longBreak'
+
+  // Change duration delta (+1m, +5m, -1m, -5m)
+  const changeDurationDelta = (delta) => {
+    if (isActive) {
+      const newMins = Math.max(1, Math.min(180, minutes + delta));
+      setMinutes(newMins);
+    } else {
+      const newMins = Math.max(1, Math.min(180, targetMinutes + delta));
+      setTargetMinutes(newMins);
+      setMinutes(newMins);
+      setSeconds(0);
+    }
+  };
+
+  // Select quick preset or session mode
+  const handleSelectPreset = (mins, type = 'focus') => {
+    setIsActive(false);
+    setSessionType(type);
+    setTargetMinutes(mins);
+    setMinutes(mins);
+    setSeconds(0);
+  };
 
   useEffect(() => {
     let interval = null;
@@ -20,9 +55,15 @@ export const PomodoroTimer = ({ onCompleteSession }) => {
           setSeconds(59);
         } else {
           setIsActive(false);
-          toast.success('🎉 Pomodoro Session Completed! Great Focus!');
-          if (onCompleteSession) onCompleteSession(25);
-          setMinutes(25);
+          toast.success(
+            sessionType === 'focus'
+              ? '🎉 Focus Session Completed! Great job!'
+              : '☕ Break Completed! Ready for next focus session!'
+          );
+          if (onCompleteSession && sessionType === 'focus') {
+            onCompleteSession(targetMinutes);
+          }
+          setMinutes(targetMinutes);
           setSeconds(0);
         }
       }, 1000);
@@ -30,41 +71,136 @@ export const PomodoroTimer = ({ onCompleteSession }) => {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [isActive, minutes, seconds, onCompleteSession]);
+  }, [isActive, minutes, seconds, sessionType, targetMinutes, onCompleteSession]);
 
   const resetTimer = () => {
     setIsActive(false);
-    setMinutes(25);
+    setMinutes(targetMinutes);
     setSeconds(0);
   };
 
   return (
-    <GlassCard className="text-center flex flex-col items-center">
-      <span className="text-xs font-bold uppercase text-indigo-600 dark:text-indigo-400 tracking-wider mb-2">
-        ⏱️ Pomodoro Focus Timer
-      </span>
-
-      <div className="my-4 text-5xl font-extrabold font-mono text-slate-900 dark:text-slate-100 tracking-wider">
-        {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
+    <GlassCard className="text-center flex flex-col items-center justify-between space-y-3">
+      <div className="flex items-center gap-1.5 text-xs font-bold uppercase text-indigo-600 dark:text-indigo-400 tracking-wider">
+        <FiClock className="text-indigo-500" />
+        <span>Pomodoro Focus Timer</span>
       </div>
 
-      <div className="flex gap-3">
+      {/* Session Mode Selector Tabs */}
+      <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-[11px] w-full justify-center">
         <button
-          onClick={() => setIsActive(!isActive)}
-          className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 transition-all ${
-            isActive
-              ? 'bg-amber-500 text-white shadow-glow'
-              : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-glow'
+          onClick={() => handleSelectPreset(25, 'focus')}
+          className={`flex-1 py-1 rounded-lg font-bold transition-all ${
+            sessionType === 'focus'
+              ? 'bg-indigo-600 text-white shadow-sm'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
           }`}
         >
-          {isActive ? <FiPause /> : <FiPlay />}
-          {isActive ? 'Pause' : 'Start Focus'}
+          🎯 Focus
+        </button>
+        <button
+          onClick={() => handleSelectPreset(5, 'shortBreak')}
+          className={`flex-1 py-1 rounded-lg font-bold transition-all ${
+            sessionType === 'shortBreak'
+              ? 'bg-emerald-600 text-white shadow-sm'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+          }`}
+        >
+          ☕ Break (5m)
+        </button>
+        <button
+          onClick={() => handleSelectPreset(15, 'longBreak')}
+          className={`flex-1 py-1 rounded-lg font-bold transition-all ${
+            sessionType === 'longBreak'
+              ? 'bg-purple-600 text-white shadow-sm'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+          }`}
+        >
+          🌴 Long (15m)
+        </button>
+      </div>
+
+      {/* Main Digital Clock Display with Increase & Decrease Controls */}
+      <div className="my-1 flex items-center justify-center gap-3 w-full">
+        {/* Decrease Controls */}
+        <div className="flex flex-col gap-1">
+          <button
+            onClick={() => changeDurationDelta(-5)}
+            className="px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-[10px] font-extrabold text-slate-700 dark:text-slate-300 transition-colors shadow-sm"
+            title="Decrease 5 minutes"
+          >
+            -5m
+          </button>
+          <button
+            onClick={() => changeDurationDelta(-1)}
+            className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center transition-colors shadow-sm"
+            title="Decrease 1 minute"
+          >
+            <FiMinus className="text-xs" />
+          </button>
+        </div>
+
+        {/* Big Digital Time Display */}
+        <div className="px-4 py-2 rounded-2xl bg-slate-900 text-indigo-400 dark:bg-slate-950 dark:text-indigo-400 font-mono font-black text-4xl sm:text-5xl tracking-widest border border-indigo-500/30 shadow-inner">
+          {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
+        </div>
+
+        {/* Increase Controls */}
+        <div className="flex flex-col gap-1">
+          <button
+            onClick={() => changeDurationDelta(+5)}
+            className="px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-[10px] font-extrabold text-slate-700 dark:text-slate-300 transition-colors shadow-sm"
+            title="Increase 5 minutes"
+          >
+            +5m
+          </button>
+          <button
+            onClick={() => changeDurationDelta(+1)}
+            className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center transition-colors shadow-sm"
+            title="Increase 1 minute"
+          >
+            <FiPlus className="text-xs" />
+          </button>
+        </div>
+      </div>
+
+      {/* Quick Presets Bar */}
+      <div className="flex items-center justify-center gap-1.5 my-1">
+        <span className="text-[10px] text-slate-400 font-semibold">Presets:</span>
+        {[15, 25, 45, 60].map((mins) => (
+          <button
+            key={mins}
+            onClick={() => handleSelectPreset(mins, 'focus')}
+            className={`px-2 py-0.5 rounded-md text-[10px] font-bold transition-all ${
+              targetMinutes === mins && sessionType === 'focus'
+                ? 'bg-indigo-600 text-white shadow-sm'
+                : 'bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:text-slate-900'
+            }`}
+          >
+            {mins}m{mins === 25 ? ' (Default)' : ''}
+          </button>
+        ))}
+      </div>
+
+      {/* Play / Pause & Reset Controls */}
+      <div className="flex items-center gap-3 w-full pt-1">
+        <button
+          onClick={() => setIsActive(!isActive)}
+          className={`flex-1 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-md ${
+            isActive
+              ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-amber-500/20'
+              : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-600/30'
+          }`}
+        >
+          {isActive ? <FiPause className="text-base" /> : <FiPlay className="text-base" />}
+          <span>{isActive ? 'Pause Timer' : 'Start Focus'}</span>
         </button>
         <button
           onClick={resetTimer}
-          className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors"
+          className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors shadow-sm"
+          title="Reset Timer"
         >
-          <FiRotateCcw />
+          <FiRotateCcw className="text-base" />
         </button>
       </div>
     </GlassCard>

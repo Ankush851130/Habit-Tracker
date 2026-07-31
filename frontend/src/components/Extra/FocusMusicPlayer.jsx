@@ -7,126 +7,230 @@ import {
   FiClock,
   FiMusic,
   FiSliders,
-  FiRadio,
   FiCheckCircle,
+  FiSearch,
 } from 'react-icons/fi';
 import { GlassCard } from '../Common/GlassCard';
 import toast from 'react-hot-toast';
 
-// Sound Variety Catalogue
+// Expanded Sound Variety Catalogue featuring Nature & Forest Sanctuary
 export const FOCUS_TRACKS = [
+  // 1. Nature & Forest Sanctuary (Primary Focus for Deep Calm)
   {
-    id: 'lofi',
+    id: 'nature_forest_birds',
+    title: 'Morning Forest & Songbirds',
+    category: 'Nature & Forest Sanctuary 🌿',
+    emoji: '🌲',
+    desc: 'Soothing mountain pine forest breeze with gentle birdsong in morning sunlight',
+    type: 'stream',
+    url: 'https://cdn.pixabay.com/download/audio/2021/08/09/audio_8844888e28.mp3',
+    fallbackType: 'forest_birds',
+    color: 'from-emerald-600 to-green-800',
+  },
+  {
+    id: 'nature_river_stream',
+    title: 'Mountain River & Babbling Stream',
+    category: 'Nature & Forest Sanctuary 🌿',
+    emoji: '🏞️',
+    desc: 'Pure freshwater stream bubbling softly over stones surrounded by woodland',
+    type: 'stream',
+    url: 'https://cdn.pixabay.com/download/audio/2022/03/10/audio_51bf3e07f2.mp3',
+    fallbackType: 'river_stream',
+    color: 'from-teal-500 to-cyan-700',
+  },
+  {
+    id: 'nature_rain_leaves',
+    title: 'Forest Rain on Canopy Leaves',
+    category: 'Nature & Forest Sanctuary 🌿',
+    emoji: '🌧️',
+    desc: 'Gentle summer rainfall dripping through green canopy leaves in a quiet woods',
+    type: 'stream',
+    url: 'https://cdn.pixabay.com/download/audio/2022/04/27/audio_6d20392ef4.mp3',
+    fallbackType: 'rain_forest',
+    color: 'from-blue-600 to-teal-800',
+  },
+  {
+    id: 'nature_forest_breeze',
+    title: 'Autumn Wind & Rustling Leaves',
+    category: 'Nature & Forest Sanctuary 🌿',
+    emoji: '🍃',
+    desc: 'Calming wind whistling through oak trees with gentle leaf rustling soundscape',
+    type: 'forest_breeze',
+    color: 'from-emerald-700 to-stone-800',
+  },
+  {
+    id: 'nature_night_crickets',
+    title: 'Summer Night Forest Crickets',
+    category: 'Nature & Forest Sanctuary 🌿',
+    emoji: '🦗',
+    desc: 'Peaceful nocturnal forest ambience with crickets & subtle night breeze',
+    type: 'night_forest',
+    color: 'from-slate-800 to-emerald-950',
+  },
+  {
+    id: 'nature_bamboo_zen',
+    title: 'Bamboo Forest & Zen Chimes',
+    category: 'Nature & Forest Sanctuary 🌿',
+    emoji: '🎋',
+    desc: 'Tranquil bamboo grove with wooden wind chimes & trickling water',
+    type: 'bamboo_zen',
+    color: 'from-teal-600 to-emerald-800',
+  },
+
+  // 2. Pure Real Rain
+  {
+    id: 'rain_pure_window',
+    title: 'Pure Window Raindrops',
+    category: 'Pure Real Rain 🌧️',
+    emoji: '☔',
+    desc: 'Authentic steady rain pattering softly against a glass window pane',
+    type: 'stream',
+    url: 'https://cdn.pixabay.com/download/audio/2021/08/09/audio_8844888e28.mp3',
+    fallbackType: 'rain_window',
+    color: 'from-blue-600 to-cyan-700',
+  },
+  {
+    id: 'rain_heavy_downpour',
+    title: 'Heavy Downpour & Thunder',
+    category: 'Pure Real Rain 🌧️',
+    emoji: '⚡',
+    desc: 'Deep monsoon rainfall with distant rolling thunder acoustics',
+    type: 'rain_heavy_thunder',
+    color: 'from-slate-700 to-cyan-900',
+  },
+  {
+    id: 'rain_cozy_roof',
+    title: 'Cozy Roof Rainstorm',
+    category: 'Pure Real Rain 🌧️',
+    emoji: '🏠',
+    desc: 'Rhythmic heavy rain pouring on a tin & wooden attic roof',
+    type: 'rain_roof',
+    color: 'from-blue-700 to-indigo-900',
+  },
+
+  // 3. Lofi & Chillhop
+  {
+    id: 'lofi_study',
     title: 'Lofi Study Beats',
-    category: 'Lofi & Piano',
+    category: 'Lofi & Chillhop',
     emoji: '🎧',
-    desc: 'Chill lofi hip-hop rhythms for productive study sessions',
+    desc: 'Chill lofi hip-hop rhythms for productive study & work sessions',
     type: 'stream',
     url: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3',
-    fallbackType: 'synth',
+    fallbackType: 'lofi_synth',
     color: 'from-indigo-500 to-purple-600',
   },
   {
-    id: 'rain',
-    title: 'Cozy Heavy Rain',
-    category: 'Nature & Ambient',
-    emoji: '🌧️',
-    desc: 'Deep relaxing rainfall with gentle ambient thunder',
-    type: 'rain',
-    color: 'from-blue-500 to-cyan-600',
+    id: 'lofi_tokyo',
+    title: 'Midnight Tokyo Lofi',
+    category: 'Lofi & Chillhop',
+    emoji: '🌃',
+    desc: 'Relaxing nocturnal lofi beats with subtle city ambience',
+    type: 'stream',
+    url: 'https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792e7.mp3',
+    fallbackType: 'binaural_alpha',
+    color: 'from-purple-600 to-slate-900',
   },
+
+  // 4. Piano & Acoustic
   {
-    id: 'binaural',
-    title: '432Hz Alpha Waves',
-    category: 'Binaural & Synth',
-    emoji: '🌌',
-    desc: 'Deep concentration brainwave entrainment for focus',
-    type: 'binaural',
-    color: 'from-purple-500 to-indigo-700',
-  },
-  {
-    id: 'ocean',
-    title: 'Calming Ocean Waves',
-    category: 'Nature & Ambient',
-    emoji: '🌊',
-    desc: 'Peaceful sea waves crashing gently on a quiet shore',
-    type: 'ocean',
-    color: 'from-cyan-500 to-teal-600',
-  },
-  {
-    id: 'piano',
-    title: 'Peaceful Classical Piano',
-    category: 'Lofi & Piano',
+    id: 'piano_peaceful',
+    title: 'Peaceful Solo Piano',
+    category: 'Piano & Acoustic',
     emoji: '🎹',
-    desc: 'Elegant acoustic piano melodies for reading & studying',
+    desc: 'Soft classical acoustic piano melodies for deep reading',
     type: 'stream',
     url: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73427.mp3',
     fallbackType: 'zen',
     color: 'from-amber-500 to-orange-600',
   },
   {
-    id: 'cafe',
-    title: 'Cozy Coffee Shop',
-    category: 'Cozy',
+    id: 'acoustic_guitar',
+    title: 'Soft Acoustic Guitar',
+    category: 'Piano & Acoustic',
+    emoji: '🎸',
+    desc: 'Warm fingerpicked acoustic guitar chords for relaxed focus',
+    type: 'stream',
+    url: 'https://cdn.pixabay.com/download/audio/2022/02/07/audio_65be1b8969.mp3',
+    fallbackType: 'zen',
+    color: 'from-emerald-600 to-teal-800',
+  },
+
+  // 5. Binaural & Brainwaves
+  {
+    id: 'binaural_alpha',
+    title: '432Hz Deep Alpha Waves',
+    category: 'Binaural & Brainwaves',
+    emoji: '🌌',
+    desc: '10Hz Alpha frequency tuned for calm alertness & mental clarity',
+    type: 'binaural_alpha',
+    color: 'from-purple-500 to-indigo-700',
+  },
+  {
+    id: 'binaural_theta',
+    title: '528Hz Theta Wave Memory',
+    category: 'Binaural & Brainwaves',
+    emoji: '🧠',
+    desc: '6Hz Theta frequency tuned for deep memory retrieval & creativity',
+    type: 'binaural_theta',
+    color: 'from-indigo-600 to-violet-800',
+  },
+
+  // 6. Cozy & Coffee Shop
+  {
+    id: 'cafe_paris',
+    title: 'Cozy Paris Coffee Shop',
+    category: 'Cozy & Coffee Shop',
     emoji: '☕',
-    desc: 'Warm coffeehouse chatter & subtle espresso machines',
+    desc: 'Warm Parisian coffeehouse chatter, espresso steam & gentle ambient vibes',
     type: 'stream',
     url: 'https://cdn.pixabay.com/download/audio/2021/09/06/audio_496c1ed2bd.mp3',
     fallbackType: 'pink_noise',
     color: 'from-amber-700 to-stone-800',
   },
   {
-    id: 'forest',
-    title: 'Forest & Morning Birds',
-    category: 'Nature & Ambient',
-    emoji: '🌲',
-    desc: 'Soothing woodland breeze and morning birdsong',
-    type: 'stream',
-    url: 'https://cdn.pixabay.com/download/audio/2021/08/09/audio_8844888e28.mp3',
-    fallbackType: 'rain',
-    color: 'from-emerald-500 to-green-700',
-  },
-  {
-    id: 'fire',
-    title: 'Crackling Fireplace',
-    category: 'Cozy',
+    id: 'fire_hearth',
+    title: 'Crackling Hearth Fireplace',
+    category: 'Cozy & Coffee Shop',
     emoji: '🔥',
-    desc: 'Comforting hearth wood fire crackling ambiance',
+    desc: 'Comforting hearth wood fire crackles and glowing ember soundscape',
     type: 'fire',
     color: 'from-orange-500 to-red-600',
   },
-  {
-    id: 'synth',
-    title: 'Cosmic Synthwave Ambient',
-    category: 'Binaural & Synth',
-    emoji: '🔮',
-    desc: 'Futuristic atmospheric space pads for deep coding',
-    type: 'synth',
-    color: 'from-fuchsia-600 to-purple-800',
-  },
-  {
-    id: 'zen',
-    title: 'Tibetan Zen Bowls',
-    category: 'Binaural & Synth',
-    emoji: '🧘',
-    desc: 'Meditative singing bowls & calming resonance',
-    type: 'zen',
-    color: 'from-violet-500 to-amber-600',
-  },
+
+  // 7. White & Colored Noise
   {
     id: 'pink_noise',
     title: 'Pink Noise Focus Filter',
-    category: 'Nature & Ambient',
+    category: 'White & Colored Noise',
     emoji: '⚪',
-    desc: 'Smooth frequency curve to block out all background noise',
+    desc: 'Smooth 1/f frequency noise curve to block out background distractions',
     type: 'pink_noise',
     color: 'from-slate-500 to-gray-700',
   },
+  {
+    id: 'brown_noise',
+    title: 'Deep Brown Brownian Noise',
+    category: 'White & Colored Noise',
+    emoji: '🟤',
+    desc: 'Deep bass-heavy brownian noise mimicking airplane cabin & heavy fan',
+    type: 'brown_noise',
+    color: 'from-stone-600 to-amber-950',
+  },
 ];
 
-const CATEGORIES = ['All', 'Lofi & Piano', 'Nature & Ambient', 'Binaural & Synth', 'Cozy'];
+const CATEGORIES = [
+  'All',
+  'Nature & Forest Sanctuary 🌿',
+  'Pure Real Rain 🌧️',
+  'Lofi & Chillhop',
+  'Piano & Acoustic',
+  'Binaural & Brainwaves',
+  'Cozy & Coffee Shop',
+  'White & Colored Noise',
+];
 
-// Web Audio API Procedural Audio Engine
+// Advanced Web Audio API Procedural Engine with Nature Soundscape Synthesis
 class WebAudioEngine {
   constructor() {
     this.ctx = null;
@@ -173,57 +277,246 @@ class WebAudioEngine {
     this.setVolume(volume);
 
     switch (type) {
-      case 'binaural':
-        this.createBinauralBeats();
+      case 'forest_birds':
+        this.createForestBirds();
         break;
-      case 'rain':
-        this.createRainSound();
+      case 'river_stream':
+        this.createRiverStream();
         break;
-      case 'ocean':
-        this.createOceanWaves();
+      case 'rain_forest':
+        this.createForestRain();
+        break;
+      case 'forest_breeze':
+        this.createForestBreeze();
+        break;
+      case 'night_forest':
+        this.createNightForest();
+        break;
+      case 'bamboo_zen':
+        this.createBambooZen();
+        break;
+      case 'rain_window':
+        this.createWindowRain();
+        break;
+      case 'rain_heavy_thunder':
+        this.createHeavyThunderRain();
+        break;
+      case 'rain_roof':
+        this.createRoofRain();
+        break;
+      case 'binaural_alpha':
+        this.createBinauralBeats(216, 226);
+        break;
+      case 'binaural_theta':
+        this.createBinauralBeats(264, 270);
         break;
       case 'fire':
         this.createFireplaceSound();
         break;
-      case 'synth':
-        this.createCosmicSynth();
-        break;
-      case 'zen':
-        this.createZenBowls();
+      case 'lofi_synth':
+        this.createLofiWarmSynth();
         break;
       case 'pink_noise':
         this.createPinkNoise();
         break;
+      case 'brown_noise':
+        this.createBrownNoise();
+        break;
       default:
-        this.createPinkNoise();
+        this.createForestBirds();
         break;
     }
   }
 
-  // 1. Binaural Alpha Beats (432Hz Base + 10Hz Alpha Delta)
-  createBinauralBeats() {
-    const oscLeft = this.ctx.createOscillator();
-    const oscRight = this.ctx.createOscillator();
-    const merger = this.ctx.createChannelMerger(2);
+  // 1. Forest & Songbirds Synthesizer
+  createForestBirds() {
+    // Pink noise background wind breeze
+    const bufferSize = this.ctx.sampleRate * 2;
+    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = (Math.random() * 2 - 1) * 0.15;
+    }
 
-    oscLeft.type = 'sine';
-    oscLeft.frequency.value = 216; // 432 / 2
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = buffer;
+    noise.loop = true;
 
-    oscRight.type = 'sine';
-    oscRight.frequency.value = 226; // 10Hz Alpha difference
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 500;
 
-    oscLeft.connect(merger, 0, 0);
-    oscRight.connect(merger, 0, 1);
-    merger.connect(this.gainNode);
+    noise.connect(filter);
+    filter.connect(this.gainNode);
+    noise.start();
 
-    oscLeft.start();
-    oscRight.start();
+    // Random natural bird chirping generator
+    this.intervalId = setInterval(() => {
+      if (Math.random() > 0.3 && this.ctx) {
+        const birdOsc = this.ctx.createOscillator();
+        const birdGain = this.ctx.createGain();
+        birdOsc.type = 'sine';
 
-    this.activeNodes.push(oscLeft, oscRight, merger);
+        const startFreq = 2200 + Math.random() * 1200;
+        birdOsc.frequency.setValueAtTime(startFreq, this.ctx.currentTime);
+        birdOsc.frequency.exponentialRampToValueAtTime(startFreq + 600, this.ctx.currentTime + 0.08);
+
+        birdGain.gain.setValueAtTime(0.06, this.ctx.currentTime);
+        birdGain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.12);
+
+        birdOsc.connect(birdGain);
+        birdGain.connect(this.gainNode);
+        birdOsc.start();
+        birdOsc.stop(this.ctx.currentTime + 0.13);
+      }
+    }, 180);
+
+    this.activeNodes.push(noise, filter);
   }
 
-  // 2. Realistic Rain Sound
-  createRainSound() {
+  // 2. Mountain River Stream Synthesizer
+  createRiverStream() {
+    const bufferSize = this.ctx.sampleRate * 2;
+    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = buffer;
+    noise.loop = true;
+
+    const bandpass = this.ctx.createBiquadFilter();
+    bandpass.type = 'bandpass';
+    bandpass.frequency.value = 1400;
+    bandpass.Q.value = 1.5;
+
+    noise.connect(bandpass);
+    bandpass.connect(this.gainNode);
+    noise.start();
+
+    this.activeNodes.push(noise, bandpass);
+  }
+
+  // 3. Forest Breeze
+  createForestBreeze() {
+    const bufferSize = this.ctx.sampleRate * 2;
+    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = (Math.random() * 2 - 1) * 0.2;
+    }
+
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = buffer;
+    noise.loop = true;
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 350;
+
+    noise.connect(filter);
+    filter.connect(this.gainNode);
+    noise.start();
+
+    this.activeNodes.push(noise, filter);
+  }
+
+  // 4. Forest Rain Drops on Canopy Leaves
+  createForestRain() {
+    const bufferSize = this.ctx.sampleRate * 2;
+    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = buffer;
+    noise.loop = true;
+
+    const lowpass = this.ctx.createBiquadFilter();
+    lowpass.type = 'lowpass';
+    lowpass.frequency.value = 800;
+
+    noise.connect(lowpass);
+    lowpass.connect(this.gainNode);
+    noise.start();
+
+    this.activeNodes.push(noise, lowpass);
+  }
+
+  // 5. Night Forest Crickets
+  createNightForest() {
+    this.intervalId = setInterval(() => {
+      if (this.ctx) {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = 4500;
+
+        gain.gain.setValueAtTime(0.03, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.05);
+
+        osc.connect(gain);
+        gain.connect(this.gainNode);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.05);
+      }
+    }, 120);
+  }
+
+  // 6. Bamboo Zen Chimes
+  createBambooZen() {
+    const freqs = [528, 639, 741, 852];
+    const playChime = () => {
+      if (!this.ctx) return;
+      const freq = freqs[Math.floor(Math.random() * freqs.length)];
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+
+      gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 2.5);
+
+      osc.connect(gain);
+      gain.connect(this.gainNode);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 2.6);
+    };
+
+    playChime();
+    this.intervalId = setInterval(playChime, 3500);
+  }
+
+  // Pure Window Raindrops
+  createWindowRain() {
+    const bufferSize = this.ctx.sampleRate * 2;
+    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = buffer;
+    noise.loop = true;
+
+    const lowpass = this.ctx.createBiquadFilter();
+    lowpass.type = 'lowpass';
+    lowpass.frequency.value = 950;
+
+    noise.connect(lowpass);
+    lowpass.connect(this.gainNode);
+    noise.start();
+
+    this.activeNodes.push(noise, lowpass);
+  }
+
+  // Heavy Thunder Rainstorm
+  createHeavyThunderRain() {
     const bufferSize = this.ctx.sampleRate * 2;
     const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
     const data = buffer.getChannelData(0);
@@ -237,7 +530,7 @@ class WebAudioEngine {
 
     const filter = this.ctx.createBiquadFilter();
     filter.type = 'lowpass';
-    filter.frequency.value = 1000;
+    filter.frequency.value = 1400;
 
     noise.connect(filter);
     filter.connect(this.gainNode);
@@ -246,9 +539,9 @@ class WebAudioEngine {
     this.activeNodes.push(noise, filter);
   }
 
-  // 3. Ocean Waves Modulation
-  createOceanWaves() {
-    const bufferSize = this.ctx.sampleRate * 3;
+  // Roof Rain
+  createRoofRain() {
+    const bufferSize = this.ctx.sampleRate * 2;
     const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
     const data = buffer.getChannelData(0);
     for (let i = 0; i < bufferSize; i++) {
@@ -259,29 +552,41 @@ class WebAudioEngine {
     noise.buffer = buffer;
     noise.loop = true;
 
-    const filter = this.ctx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = 400;
+    const bandpass = this.ctx.createBiquadFilter();
+    bandpass.type = 'bandpass';
+    bandpass.frequency.value = 1100;
+    bandpass.Q.value = 2.0;
 
-    // LFO for wave swelling
-    const lfo = this.ctx.createOscillator();
-    lfo.frequency.value = 0.12; // 12-second wave cycle
-    const lfoGain = this.ctx.createGain();
-    lfoGain.gain.value = 300;
-
-    lfo.connect(lfoGain);
-    lfoGain.connect(filter.frequency);
-
-    noise.connect(filter);
-    filter.connect(this.gainNode);
-
-    lfo.start();
+    noise.connect(bandpass);
+    bandpass.connect(this.gainNode);
     noise.start();
 
-    this.activeNodes.push(noise, filter, lfo, lfoGain);
+    this.activeNodes.push(noise, bandpass);
   }
 
-  // 4. Crackling Fireplace
+  // Binaural Beats Generator
+  createBinauralBeats(freqL, freqR) {
+    const oscLeft = this.ctx.createOscillator();
+    const oscRight = this.ctx.createOscillator();
+    const merger = this.ctx.createChannelMerger(2);
+
+    oscLeft.type = 'sine';
+    oscLeft.frequency.value = freqL;
+
+    oscRight.type = 'sine';
+    oscRight.frequency.value = freqR;
+
+    oscLeft.connect(merger, 0, 0);
+    oscRight.connect(merger, 0, 1);
+    merger.connect(this.gainNode);
+
+    oscLeft.start();
+    oscRight.start();
+
+    this.activeNodes.push(oscLeft, oscRight, merger);
+  }
+
+  // Crackling Fireplace
   createFireplaceSound() {
     const bufferSize = this.ctx.sampleRate * 2;
     const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
@@ -303,37 +608,20 @@ class WebAudioEngine {
     filter.connect(this.gainNode);
     noise.start();
 
-    // Crackle bursts generator
-    this.intervalId = setInterval(() => {
-      if (Math.random() > 0.4 && this.ctx) {
-        const osc = this.ctx.createOscillator();
-        const crackleGain = this.ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.value = 2000 + Math.random() * 3000;
-        crackleGain.gain.setValueAtTime(0.08, this.ctx.currentTime);
-        crackleGain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.05);
-
-        osc.connect(crackleGain);
-        crackleGain.connect(this.gainNode);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.06);
-      }
-    }, 150);
-
     this.activeNodes.push(noise, filter);
   }
 
-  // 5. Cosmic Synth Atmosphere
-  createCosmicSynth() {
-    const freqs = [130.81, 164.81, 196.00, 246.94]; // C chord pad
+  // Lofi Warm Synth Chord
+  createLofiWarmSynth() {
+    const freqs = [174.61, 220.00, 261.63, 329.63];
     freqs.forEach((f) => {
       const osc = this.ctx.createOscillator();
       const filter = this.ctx.createBiquadFilter();
-      osc.type = 'sawtooth';
+      osc.type = 'triangle';
       osc.frequency.value = f;
 
       filter.type = 'lowpass';
-      filter.frequency.value = 350;
+      filter.frequency.value = 600;
 
       osc.connect(filter);
       filter.connect(this.gainNode);
@@ -342,31 +630,7 @@ class WebAudioEngine {
     });
   }
 
-  // 6. Tibetan Zen Bowls
-  createZenBowls() {
-    const playBowl = () => {
-      if (!this.ctx) return;
-      const osc = this.ctx.createOscillator();
-      const bowlGain = this.ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.value = 432;
-
-      bowlGain.gain.setValueAtTime(0.4, this.ctx.currentTime);
-      bowlGain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 4.5);
-
-      osc.connect(bowlGain);
-      bowlGain.connect(this.gainNode);
-      osc.start();
-      osc.stop(this.ctx.currentTime + 4.6);
-    };
-
-    playBowl();
-    this.intervalId = setInterval(() => {
-      playBowl();
-    }, 5000);
-  }
-
-  // 7. Pink Noise
+  // Pink Noise
   createPinkNoise() {
     const bufferSize = this.ctx.sampleRate * 2;
     const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
@@ -392,6 +656,27 @@ class WebAudioEngine {
     noise.start();
     this.activeNodes.push(noise);
   }
+
+  // Brown Noise
+  createBrownNoise() {
+    const bufferSize = this.ctx.sampleRate * 2;
+    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    let lastOut = 0.0;
+    for (let i = 0; i < bufferSize; i++) {
+      const white = Math.random() * 2 - 1;
+      data[i] = (lastOut + 0.02 * white) / 1.02;
+      lastOut = data[i];
+      data[i] *= 3.5;
+    }
+
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = buffer;
+    noise.loop = true;
+    noise.connect(this.gainNode);
+    noise.start();
+    this.activeNodes.push(noise);
+  }
 }
 
 const audioEngine = new WebAudioEngine();
@@ -401,21 +686,24 @@ export const FocusMusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.7);
   const [isMuted, setIsMuted] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [sleepTimer, setSleepTimer] = useState(0); // in minutes
-  const [overlayAmbience, setOverlayAmbience] = useState(null); // optional ambient layer (e.g. Rain)
+  const [selectedCategory, setSelectedCategory] = useState('Nature & Forest Sanctuary 🌿');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sleepTimer, setSleepTimer] = useState(0);
+  const [overlayAmbience, setOverlayAmbience] = useState(null);
 
   const audioRef = useRef(null);
   const overlayEngineRef = useRef(new WebAudioEngine());
   const timerRef = useRef(null);
 
-  // Filter tracks by category
-  const filteredTracks =
-    selectedCategory === 'All'
-      ? FOCUS_TRACKS
-      : FOCUS_TRACKS.filter((t) => t.category === selectedCategory);
+  const filteredTracks = FOCUS_TRACKS.filter((t) => {
+    const categoryMatch = selectedCategory === 'All' || t.category === selectedCategory;
+    const searchMatch =
+      !searchQuery ||
+      t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      t.desc.toLowerCase().includes(searchQuery.toLowerCase());
+    return categoryMatch && searchMatch;
+  });
 
-  // Handle Play/Pause
   const togglePlay = () => {
     if (isPlaying) {
       stopAudio();
@@ -428,7 +716,6 @@ export const FocusMusicPlayer = () => {
     setCurrentTrack(track);
 
     if (track.type === 'stream' && track.url) {
-      // Use HTML5 audio stream with Web Audio fallback
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -446,14 +733,12 @@ export const FocusMusicPlayer = () => {
           toast.success(`Playing ${track.emoji} ${track.title}`);
         })
         .catch((err) => {
-          console.warn('Stream failed, launching procedural audio fallback:', err);
-          // Fallback to web audio engine
-          audioEngine.playType(track.fallbackType || 'synth', isMuted ? 0 : volume);
+          console.warn('Stream failed, launching procedural fallback:', err);
+          audioEngine.playType(track.fallbackType || 'forest_birds', isMuted ? 0 : volume);
           setIsPlaying(true);
-          toast.success(`Playing ${track.emoji} ${track.title} (Ambient Engine)`);
+          toast.success(`Playing ${track.emoji} ${track.title} (Nature Sound Engine)`);
         });
     } else {
-      // Web Audio API procedural track
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -471,7 +756,6 @@ export const FocusMusicPlayer = () => {
     setIsPlaying(false);
   };
 
-  // Handle Volume change
   const handleVolumeChange = (newVol) => {
     setVolume(newVol);
     setIsMuted(newVol === 0);
@@ -493,7 +777,6 @@ export const FocusMusicPlayer = () => {
     }
   };
 
-  // Handle Secondary Overlay Ambience (e.g. add rain to lofi)
   const toggleOverlayAmbience = (type) => {
     if (overlayAmbience === type) {
       overlayEngineRef.current.stop();
@@ -502,11 +785,10 @@ export const FocusMusicPlayer = () => {
     } else {
       overlayEngineRef.current.playType(type, 0.4);
       setOverlayAmbience(type);
-      toast.success(`Layered ${type.toUpperCase()} sound overlay! 🎧`);
+      toast.success(`Layered ${type.toUpperCase()} sound overlay! 🌿`);
     }
   };
 
-  // Sleep Timer countdown
   useEffect(() => {
     if (sleepTimer > 0 && isPlaying) {
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -525,7 +807,6 @@ export const FocusMusicPlayer = () => {
     };
   }, [sleepTimer, isPlaying]);
 
-  // Clean up on unmount
   useEffect(() => {
     return () => {
       stopAudio();
@@ -537,26 +818,26 @@ export const FocusMusicPlayer = () => {
     <GlassCard className="relative overflow-hidden space-y-6">
       {/* Background Subtle Gradient Glow */}
       <div
-        className={`absolute -top-24 -right-24 w-72 h-72 rounded-full bg-gradient-to-br ${currentTrack.color} opacity-20 blur-3xl transition-all duration-700 pointer-events-none`}
+        className={`absolute -top-24 -right-24 w-80 h-80 rounded-full bg-gradient-to-br ${currentTrack.color} opacity-20 blur-3xl transition-all duration-700 pointer-events-none`}
       />
 
-      {/* Title & Header */}
+      {/* Header & Sleep Timer */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <FiMusic className="text-indigo-600 dark:text-indigo-400 text-xl" />
+            <FiMusic className="text-emerald-500 dark:text-emerald-400 text-xl" />
             <h2 className="text-lg font-extrabold text-slate-900 dark:text-slate-100">
-              Focus Music & Soundscapes
+              Nature & Forest Soundscapes Sanctuary
             </h2>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Curated sound varieties & brainwave frequencies for deep study, coding & focus
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Immersive natural forest birdsong, mountain streams, gentle leaves & rain to cool and calm your mind
           </p>
         </div>
 
-        {/* Sleep Timer Selector */}
+        {/* Sleep Timer */}
         <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-          <FiClock className="text-indigo-600 dark:text-indigo-400" />
+          <FiClock className="text-emerald-600 dark:text-emerald-400" />
           <span className="font-semibold text-slate-700 dark:text-slate-300">Sleep Timer:</span>
           <select
             value={sleepTimer}
@@ -573,9 +854,9 @@ export const FocusMusicPlayer = () => {
       </div>
 
       {/* Now Playing Active Hero Player */}
-      <div className="p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-xl relative overflow-hidden">
+      <div className="p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 text-white shadow-xl relative overflow-hidden">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
-          {/* Left: Track Info & Visualizer */}
+          {/* Track Details */}
           <div className="flex items-center gap-4 w-full md:w-auto">
             <div
               className={`h-16 w-16 rounded-2xl bg-gradient-to-br ${currentTrack.color} flex items-center justify-center text-3xl shadow-glow transition-transform ${
@@ -587,12 +868,15 @@ export const FocusMusicPlayer = () => {
 
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-white/10 text-indigo-200">
+                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-white/10 text-emerald-200">
                   {currentTrack.category}
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/30 text-emerald-300 font-bold border border-emerald-500/40">
+                  {currentTrack.type === 'stream' ? '🌿 Natural Stream HD' : '⚡ Nature Synthesizer'}
                 </span>
                 {isPlaying && (
                   <span className="flex items-center gap-1 text-[10px] text-emerald-400 font-bold">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" /> Playing
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" /> Playing Nature
                   </span>
                 )}
               </div>
@@ -606,7 +890,7 @@ export const FocusMusicPlayer = () => {
             {[0.4, 0.8, 0.5, 0.9, 0.3, 0.7, 1.0, 0.6, 0.4, 0.85].map((h, i) => (
               <div
                 key={i}
-                className="w-1 rounded-full bg-indigo-400/80 transition-all duration-300"
+                className="w-1 rounded-full bg-emerald-400/80 transition-all duration-300"
                 style={{
                   height: isPlaying ? `${h * 100}%` : '20%',
                   animation: isPlaying ? `pulse 1.${i + 2}s infinite alternate` : 'none',
@@ -615,9 +899,8 @@ export const FocusMusicPlayer = () => {
             ))}
           </div>
 
-          {/* Center/Right: Play Controls & Volume */}
+          {/* Controls & Volume */}
           <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-white/10 pt-4 md:pt-0">
-            {/* Volume Control */}
             <div className="flex items-center gap-2">
               <button
                 onClick={toggleMute}
@@ -633,48 +916,48 @@ export const FocusMusicPlayer = () => {
                 step="0.05"
                 value={isMuted ? 0 : volume}
                 onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
-                className="w-20 sm:w-24 accent-indigo-400 cursor-pointer"
+                className="w-20 sm:w-24 accent-emerald-400 cursor-pointer"
               />
             </div>
 
-            {/* Big Play / Pause Button */}
             <button
               onClick={togglePlay}
               className={`h-12 px-6 rounded-2xl font-bold text-sm flex items-center gap-2 shadow-2xl transition-all transform active:scale-95 ${
                 isPlaying
                   ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-amber-500/30'
-                  : 'bg-indigo-500 hover:bg-indigo-400 text-white shadow-indigo-500/40'
+                  : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/40'
               }`}
             >
               {isPlaying ? <FiPause className="text-lg" /> : <FiPlay className="text-lg fill-current" />}
-              <span>{isPlaying ? 'Pause' : 'Play Music'}</span>
+              <span>{isPlaying ? 'Pause' : 'Play Nature'}</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Layering Sound Mixer (Overlay Ambience) */}
+      {/* Layering Sound Mixer */}
       <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <FiSliders className="text-indigo-600 dark:text-indigo-400" />
+          <FiSliders className="text-emerald-600 dark:text-emerald-400" />
           <div>
-            <span className="text-xs font-bold text-slate-900 dark:text-slate-100">Sound Layering Mixer</span>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400">Mix background ambience over your active track</p>
+            <span className="text-xs font-bold text-slate-900 dark:text-slate-100">Nature Layering Mixer</span>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">Layer forest birds, river stream or rain over any track</p>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-2">
           {[
-            { id: 'rain', label: '🌧️ Rain Overlay' },
-            { id: 'fire', label: '🔥 Fireplace Overlay' },
-            { id: 'ocean', label: '🌊 Ocean Overlay' },
+            { id: 'forest_birds', label: '🐦 Forest Birds' },
+            { id: 'river_stream', label: '🏞️ River Stream' },
+            { id: 'rain_window', label: '🌧️ Forest Rain' },
+            { id: 'bamboo_zen', label: '🎋 Zen Chimes' },
           ].map((item) => (
             <button
               key={item.id}
               onClick={() => toggleOverlayAmbience(item.id)}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
                 overlayAmbience === item.id
-                  ? 'bg-indigo-600 text-white border-indigo-500 shadow-glow'
+                  ? 'bg-emerald-600 text-white border-emerald-500 shadow-glow'
                   : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
               }`}
             >
@@ -684,24 +967,37 @@ export const FocusMusicPlayer = () => {
         </div>
       </div>
 
-      {/* Category Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-        {CATEGORIES.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
-              selectedCategory === cat
-                ? 'bg-indigo-600 text-white shadow-glow'
-                : 'bg-slate-100 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 border border-slate-200 dark:border-slate-800'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+      {/* Category Tabs & Search */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none w-full sm:w-auto">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+                selectedCategory === cat
+                  ? 'bg-emerald-600 text-white shadow-glow'
+                  : 'bg-slate-100 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 border border-slate-200 dark:border-slate-800'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        <div className="relative w-full sm:w-48">
+          <FiSearch className="absolute left-3 top-2.5 text-slate-400 text-xs" />
+          <input
+            type="text"
+            placeholder="Search nature music..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-8 pr-3 py-1.5 rounded-xl text-xs bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          />
+        </div>
       </div>
 
-      {/* Sound Variety Catalogue Grid */}
+      {/* Sound Tracks Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredTracks.map((track) => {
           const isSelected = currentTrack.id === track.id;
@@ -713,8 +1009,8 @@ export const FocusMusicPlayer = () => {
               onClick={() => startTrack(track)}
               className={`p-4 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between group ${
                 isSelected
-                  ? 'bg-indigo-50/80 dark:bg-indigo-950/40 border-indigo-500/60 shadow-md ring-1 ring-indigo-500/30'
-                  : 'bg-slate-50/80 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 hover:border-indigo-400/50 hover:bg-slate-100 dark:hover:bg-slate-850'
+                  ? 'bg-emerald-50/80 dark:bg-emerald-950/40 border-emerald-500/60 shadow-md ring-1 ring-emerald-500/30'
+                  : 'bg-slate-50/80 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 hover:border-emerald-400/50 hover:bg-slate-100 dark:hover:bg-slate-850'
               }`}
             >
               <div className="flex items-start justify-between gap-3 mb-3">
@@ -725,10 +1021,12 @@ export const FocusMusicPlayer = () => {
                     {track.emoji}
                   </div>
                   <div>
-                    <h4 className="font-bold text-xs text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    <h4 className="font-bold text-xs text-slate-900 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                       {track.title}
                     </h4>
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400">{track.category}</span>
+                    <span className="text-[9px] font-bold text-slate-500 dark:text-slate-400">
+                      {track.category}
+                    </span>
                   </div>
                 </div>
 
@@ -736,7 +1034,7 @@ export const FocusMusicPlayer = () => {
                   className={`h-8 w-8 rounded-full flex items-center justify-center text-xs transition-all ${
                     isThisPlaying
                       ? 'bg-amber-500 text-slate-950 font-extrabold shadow-glow'
-                      : 'bg-indigo-600/10 text-indigo-600 dark:text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white'
+                      : 'bg-emerald-600/10 text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-600 group-hover:text-white'
                   }`}
                 >
                   {isThisPlaying ? <FiPause /> : <FiPlay className="ml-0.5" />}
@@ -748,11 +1046,11 @@ export const FocusMusicPlayer = () => {
               </p>
 
               {isSelected && (
-                <div className="mt-3 pt-2 border-t border-indigo-200 dark:border-indigo-900/50 flex items-center justify-between text-[10px] font-semibold text-indigo-600 dark:text-indigo-400">
+                <div className="mt-3 pt-2 border-t border-emerald-200 dark:border-emerald-900/50 flex items-center justify-between text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
                   <span className="flex items-center gap-1">
                     <FiCheckCircle /> Selected
                   </span>
-                  <span>{isThisPlaying ? 'Playing Now' : 'Click to Resume'}</span>
+                  <span>{isThisPlaying ? 'Playing Nature' : 'Click to Play'}</span>
                 </div>
               )}
             </div>

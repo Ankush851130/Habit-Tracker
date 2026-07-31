@@ -302,33 +302,30 @@ export const Profile = () => {
       <div className="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-2">
         <button
           onClick={() => setActiveTab('badges')}
-          className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all cursor-pointer ${
-            activeTab === 'badges'
+          className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all cursor-pointer ${activeTab === 'badges'
               ? 'bg-indigo-600 text-white shadow-glow'
               : 'bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
-          }`}
+            }`}
         >
           <FiAward className="text-sm" /> Badges & Achievements ({unlockedBadgeIds.size})
         </button>
 
         <button
           onClick={() => setActiveTab('profile')}
-          className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all cursor-pointer ${
-            activeTab === 'profile'
+          className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all cursor-pointer ${activeTab === 'profile'
               ? 'bg-indigo-600 text-white shadow-glow'
               : 'bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
-          }`}
+            }`}
         >
           <FiUser className="text-sm" /> Edit Profile & Avatars
         </button>
 
         <button
           onClick={() => setActiveTab('security')}
-          className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all cursor-pointer ${
-            activeTab === 'security'
+          className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all cursor-pointer ${activeTab === 'security'
               ? 'bg-indigo-600 text-white shadow-glow'
               : 'bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
-          }`}
+            }`}
         >
           <FiLock className="text-sm" /> Security & Password
         </button>
@@ -359,11 +356,10 @@ export const Profile = () => {
                 return (
                   <div
                     key={ach.key}
-                    className={`p-4 rounded-2xl border transition-all flex flex-col justify-between relative overflow-hidden ${
-                      isUnlocked
+                    className={`p-4 rounded-2xl border transition-all flex flex-col justify-between relative overflow-hidden ${isUnlocked
                         ? 'bg-gradient-to-br from-indigo-50/90 to-purple-50/90 dark:from-indigo-950/40 dark:to-purple-950/40 border-indigo-500/50 shadow-md'
                         : 'bg-slate-50/50 dark:bg-slate-900/30 border-slate-200 dark:border-slate-800 opacity-60 grayscale hover:grayscale-0'
-                    }`}
+                      }`}
                   >
                     {isUnlocked && (
                       <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[9px] font-black uppercase flex items-center gap-1 shadow-sm">
@@ -414,11 +410,10 @@ export const Profile = () => {
                   key={p.id}
                   type="button"
                   onClick={() => handleSelectPresetAvatar(p.url)}
-                  className={`p-1 rounded-2xl border transition-all hover:scale-105 cursor-pointer ${
-                    user?.avatar === p.url
+                  className={`p-1 rounded-2xl border transition-all hover:scale-105 cursor-pointer ${user?.avatar === p.url
                       ? 'border-indigo-500 ring-2 ring-indigo-500/50 bg-indigo-500/20'
                       : 'border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 hover:border-slate-400'
-                  }`}
+                    }`}
                   title={p.name}
                 >
                   <img src={p.url} alt={p.name} className="w-full h-auto rounded-xl" />
